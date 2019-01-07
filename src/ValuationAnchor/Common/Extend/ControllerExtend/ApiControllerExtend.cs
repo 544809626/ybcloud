@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SensitivewordApi.Helper.ReturnHelpers;
-
+using System.Net;
 namespace SensitivewordApi.Common.Extend.ControllerExtend
 {
     /// <summary>
@@ -12,6 +12,7 @@ namespace SensitivewordApi.Common.Extend.ControllerExtend
     /// </summary>
     public static class ApiControllerExtend
     {
+        
         /// <summary>
         /// 返回结果扩展
         /// </summary>

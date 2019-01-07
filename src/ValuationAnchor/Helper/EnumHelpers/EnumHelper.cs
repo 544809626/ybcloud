@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-
+using System.Net;
 namespace SensitivewordApi.Helper.EnumHelpers
 {
     /// <summary>
@@ -12,6 +12,7 @@ namespace SensitivewordApi.Helper.EnumHelpers
     /// </summary>
     public static class EnumHelper
     {
+        
         /// <summary>
         /// 获取枚举描述信息
         /// </summary>
@@ -37,4 +38,8 @@ namespace SensitivewordApi.Helper.EnumHelpers
             return strDesc;
         }
     }
+
+    
+
+
 }

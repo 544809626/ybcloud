@@ -25,8 +25,9 @@
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "NLog.Web.AspNetCore": "4.7.0",
     "Dapper": "1.50.2",
-    "StackExchange.Redis.StrongName": "1.1.608"
-  },
+    "StackExchange.Redis.StrongName": "1.1.608",
+    "System.Text.Encoding.CodePages": "4.5.0",
+    "System.IO": "4.3.0"  },
 
   "tools": {
       "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
