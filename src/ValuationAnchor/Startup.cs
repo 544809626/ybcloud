@@ -73,7 +73,7 @@ namespace ValuationAnchor
                 {
 //#if  !DEBUG
 
-//                    options.Filters.Add(typeof(CheckRequestFilter));
+                   //options.Filters.Add(typeof(CheckRequestFilter));
 //#endif
                     options.Filters.Add(typeof(LogFilter));
                 })

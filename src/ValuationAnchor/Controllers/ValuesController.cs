@@ -46,6 +46,7 @@ namespace ValuationAnchor.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
 
         public static async Task<string> GetWebJson<T>(string url, Dictionary<string, string> para = null,
@@ -75,28 +76,21 @@ namespace ValuationAnchor.Controllers
                     try
                     {
                         //解析返回
-
                         var str = result.Remove(0, 29);
-
                         if (str.Contains("gn_"))
                         {
                             var list = str.Split(':');
-                            //foreach (var s in list)
-                            //{
-                            //    if (s.Length <20) continue;
-                            //    var ss = s;
-                            //}
+
+                           
+
                         }
                         return str;
-
                     }
                     catch (Exception ex)
                     {
-
                         return result;
                     }
                 }
-
             }
         }
     }
