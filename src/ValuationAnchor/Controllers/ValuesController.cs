@@ -8,12 +8,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using NuGet.Protocol;
+using SensitivewordApi.Helper.ReturnHelpers;
+using ValuationAnchor.Extend.EnumExtend;
+using ValuationAnchor.Helpers;
+using ValuationAnchor.Models;
+using ResultCode = SensitivewordApi.Common.ResultCode;
 
 namespace ValuationAnchor.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/[controller]/[action]")]
+    public class ValuesController : BaseController
     {
+        private ILogger<dynamic> _logger;
+
+        private string _msg = "请求成功";
         // GET api/values
         [HttpGet]
         public async Task<string> Get()
@@ -21,6 +32,13 @@ namespace ValuationAnchor.Controllers
             // return new string[] { "value1", "value2" };
             var list =await GetWebJson<JsonResult>("http://money.finance.sina.com.cn/q/view/newFLJK.php?param=class");
             return list;
+        }
+
+        [HttpGet]
+        public JsonResult GetListJson()
+        {
+           var value= RedisHelper.GetToken("BlockList_11");
+           return Result_Ok(value);
         }
 
         // GET api/values/5
@@ -52,7 +70,6 @@ namespace ValuationAnchor.Controllers
         public static async Task<string> GetWebJson<T>(string url, Dictionary<string, string> para = null,
             Dictionary<string, string> head = null)
         {
-
             using (HttpClient client = new HttpClient())
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -66,7 +83,6 @@ namespace ValuationAnchor.Controllers
                     myStreamReader.Dispose();
                     myResponseStream.Dispose();
                 }
-
                 if (string.IsNullOrEmpty(result))
                 {
                     return result;
@@ -80,9 +96,16 @@ namespace ValuationAnchor.Controllers
                         if (str.Contains("gn_"))
                         {
                             var list = str.Split(':');
-
-                           
-
+                            var i = 0;
+                            foreach (var gn in list)
+                                {
+                                  
+                                if (  i < list.Length )
+                                {
+                                    RedisHelper.SetToken("BlockList_"+i, gn, TimeSpan.FromSeconds(3600));
+                                    i++;  
+                                }
+                            }                          
                         }
                         return str;
                     }
@@ -92,6 +115,11 @@ namespace ValuationAnchor.Controllers
                     }
                 }
             }
+        }
+
+        public ValuesController(ILogger<dynamic> logger) : base(logger)
+        {
+            _logger = logger;
         }
     }
 }

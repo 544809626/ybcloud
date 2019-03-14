@@ -67,7 +67,8 @@ namespace ValuationAnchor
                 Host = Configuration["Redis:Host"],
                 Port = int.Parse(Configuration["Redis:Port"]),
                 Prefix = Configuration["Redis:Prefix"],
-                TimeOut = int.Parse(Configuration["Redis:TimeOut"])
+                TimeOut = int.Parse(Configuration["Redis:TimeOut"]),
+                DataBase = int.Parse(Configuration["Redis:database"])
             };
             services.AddMvc(options =>
                 {

@@ -23,6 +23,11 @@ namespace SensitivewordApi.Common.AllConfig
         public int TimeOut { get; set; }
 
         /// <summary>
+        /// Redis中的数据库
+        /// </summary>
+        public int DataBase { get; set; }
+
+        /// <summary>
         /// 缓存Key前缀
         /// </summary>
         public string Prefix { get; set; }

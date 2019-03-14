@@ -69,8 +69,5 @@ namespace ValuationAnchor.Controllers
                 return this.Result_Error("请求失败");
             }
         }
-
-
-
     }
 }

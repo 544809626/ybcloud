@@ -35,6 +35,7 @@ namespace ValuationAnchor.Helpers
                             {
                                 EndPoints = { { RedisConfig.Host, RedisConfig.Port } },
                                 ConnectTimeout = RedisConfig.TimeOut,
+                                DefaultDatabase = 1,
                                 AbortOnConnectFail = false
                             });
 
