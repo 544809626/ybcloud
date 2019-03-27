@@ -10,7 +10,7 @@ using ValuationAnchor.Helpers;
 
 namespace ValuationAnchor.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class TokenController : BaseController
     {
         private readonly ILogger<dynamic> _logger;

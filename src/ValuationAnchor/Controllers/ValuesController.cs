@@ -1,44 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
-using System.Text.RegularExpressions;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using System.Linq;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using NuGet.Protocol;
-using SensitivewordApi.Helper.ReturnHelpers;
-using ValuationAnchor.Extend.EnumExtend;
 using ValuationAnchor.Helpers;
-using ValuationAnchor.Models;
-using ResultCode = SensitivewordApi.Common.ResultCode;
 
 namespace ValuationAnchor.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class ValuesController : BaseController
     {
+
+
         private ILogger<dynamic> _logger;
 
         private string _msg = "请求成功";
+
+        public ValuesController(ILogger<dynamic> logger) : base(logger)
+        {
+            _logger = logger;
+        }
         // GET api/values
         [HttpGet]
         public async Task<string> Get()
         {
             // return new string[] { "value1", "value2" };
-            var list =await GetWebJson<JsonResult>("http://money.finance.sina.com.cn/q/view/newFLJK.php?param=class");
+            var list = await GetWebJson<JsonResult>("http://money.finance.sina.com.cn/q/view/newFLJK.php?param=class");
+            _logger.LogInformation("-----Data");
             return list;
         }
 
         [HttpGet]
         public JsonResult GetListJson()
         {
-           var value= RedisHelper.GetToken("BlockList_11");
-           return Result_Ok(value);
+            var value = RedisHelper.GetToken("BlockList_11");
+            return Result_Ok(value);
+            //把字段存储在DB 中，每个15秒刷新一次
+
         }
 
         // GET api/values/5
@@ -98,28 +100,39 @@ namespace ValuationAnchor.Controllers
                             var list = str.Split(':');
                             var i = 0;
                             foreach (var gn in list)
+                            {
+
+                                if (i < list.Length)
                                 {
-                                  
-                                if (  i < list.Length )
-                                {
-                                    RedisHelper.SetToken("BlockList_"+i, gn, TimeSpan.FromSeconds(3600));
-                                    i++;  
+                                    RedisHelper.SetToken("BlockList_" + i, gn, TimeSpan.FromSeconds(3600));
+                                    i++;
+                                    
                                 }
-                            }                          
+                            }
                         }
                         return str;
                     }
                     catch (Exception ex)
                     {
+                       
+                      
                         return result;
                     }
                 }
             }
         }
 
-        public ValuesController(ILogger<dynamic> logger) : base(logger)
+        /// <summary>
+        /// 获取token
+        /// </summary>
+        /// <returns></returns>
+        public string GetToken()
         {
-            _logger = logger;
+            var result = "";
+            return result;
         }
+
+
+      
     }
 }

@@ -74,7 +74,7 @@ namespace ValuationAnchor
                 {
 //#if  !DEBUG
 
-                   //options.Filters.Add(typeof(CheckRequestFilter));
+                   options.Filters.Add(typeof(CheckRequestFilter));
 //#endif
                     options.Filters.Add(typeof(LogFilter));
                 })
@@ -89,6 +89,7 @@ namespace ValuationAnchor
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //引入NLog日志组件
+
             loggerFactory.AddNLog();
 
 
