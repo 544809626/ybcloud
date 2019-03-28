@@ -72,10 +72,10 @@ namespace ValuationAnchor
             };
             services.AddMvc(options =>
                 {
-//#if  !DEBUG
+                    //#if  !DEBUG
 
-                   options.Filters.Add(typeof(CheckRequestFilter));
-//#endif
+                    options.Filters.Add(typeof(CheckRequestFilter));
+                    //#endif
                     options.Filters.Add(typeof(LogFilter));
                 })
                 .AddJsonOptions(x =>
@@ -88,16 +88,11 @@ namespace ValuationAnchor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //引入NLog日志组件
-
-            loggerFactory.AddNLog();
-
-
-            env.ConfigureNLog("nlog.config");//加载NLog配置文件
-
             //启用静态文件
             app.UseStaticFiles();
-
+            //引入NLog日志组件
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("nlog.config");//加载NLog配置文件
             //异常处理
             app.UseExceptionHandler(
                 builder =>
